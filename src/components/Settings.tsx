@@ -3,7 +3,11 @@ import { db, seedDatabase } from '../db/database';
 import { Category } from '../types';
 import { Save, Plus, Trash2, Database, Server, Globe, Shield, Palette } from 'lucide-react';
 
-export default function Settings() {
+interface SettingsProps {
+  onLogout?: () => void;
+}
+
+export default function Settings({ onLogout }: SettingsProps) {
   const [storeName, setStoreName] = useState('Weak Inventory Store');
   const [storeAddress, setStoreAddress] = useState('123 Main Street, City');
   const [storePhone, setStorePhone] = useState('+1 (555) 123-4567');
@@ -131,6 +135,23 @@ export default function Settings() {
           <button className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white rounded-xl font-medium hover:from-indigo-700 hover:to-indigo-600 flex items-center gap-2 shadow-lg shadow-indigo-500/25"><Server className="w-4 h-4" />Connect to Server</button>
         </div>
       </div>
+
+      {onLogout && (
+        <div className="bg-white rounded-2xl border border-gray-200 p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="font-bold text-gray-800">Session</h3>
+              <p className="text-sm text-gray-500">Sign out of your account</p>
+            </div>
+            <button
+              onClick={onLogout}
+              className="px-6 py-2.5 bg-red-100 text-red-700 rounded-xl font-medium hover:bg-red-200"
+            >
+              Sign Out
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
